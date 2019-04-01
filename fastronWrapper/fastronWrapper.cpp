@@ -1589,13 +1589,6 @@ static void __Pyx_CppExn2PyErr() {
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
-/* Print.proto */
-static int __Pyx_Print(PyObject*, PyObject *, int);
-#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
-static PyObject* __pyx_print = 0;
-static PyObject* __pyx_print_kwargs = 0;
-#endif
-
 /* RealImag.proto */
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -1700,9 +1693,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES v
 /* CIntFromPy.proto */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
-/* PrintOne.proto */
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
-
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
@@ -1777,14 +1767,10 @@ static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
-static const char __pyx_k_a[] = "a";
-static const char __pyx_k_end[] = "end";
 static const char __pyx_k_data[] = "data";
-static const char __pyx_k_file[] = "file";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_reduce[] = "__reduce__";
 static const char __pyx_k_getstate[] = "__getstate__";
@@ -1815,11 +1801,8 @@ static PyObject *__pyx_n_s_PyFastron;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_ValueError;
-static PyObject *__pyx_n_s_a;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_data;
-static PyObject *__pyx_n_s_end;
-static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_getstate;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
@@ -1828,7 +1811,6 @@ static PyObject *__pyx_kp_u_ndarray_is_not_Fortran_contiguou;
 static PyObject *__pyx_kp_s_no_default___reduce___due_to_non;
 static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
-static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_reduce;
 static PyObject *__pyx_n_s_reduce_cython;
@@ -1846,9 +1828,9 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_10maxUpda
 static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_10maxUpdates_2__set__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, PyObject *__pyx_v_maxUpdates); /* proto */
 static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_16maxSupportPoints___get__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
 static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_16maxSupportPoints_2__set__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, PyObject *__pyx_v_maxSupportPoints); /* proto */
-static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G___get__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G___get__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
 static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G_2__set__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, PyArrayObject *__pyx_v_G); /* proto */
-static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data___get__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data___get__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
 static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data_2__set__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, PyArrayObject *__pyx_v_data); /* proto */
 static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1N___get__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
 static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1N_2__set__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, PyObject *__pyx_v_N); /* proto */
@@ -2508,12 +2490,12 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_16maxSupportPoi
   return __pyx_r;
 }
 
-/* "fastronWrapper/fastronWrapper.pyx":57
- *     # TODO
+/* "fastronWrapper/fastronWrapper.pyx":56
+ *     # Gram matrix and dataset of configurations
  *     @property
  *     def G(self):             # <<<<<<<<<<<<<<
- *         print('a')
- *         #return ndarray(self.G)
+ *         return ndarray(self.c_fastron.G)
+ *     @G.setter
  */
 
 /* Python wrapper */
@@ -2529,32 +2511,37 @@ static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_1G_1__get
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G___get__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self) {
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G___get__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "fastronWrapper/fastronWrapper.pyx":58
+  /* "fastronWrapper/fastronWrapper.pyx":57
  *     @property
  *     def G(self):
- *         print('a')             # <<<<<<<<<<<<<<
- *         #return ndarray(self.G)
+ *         return ndarray(self.c_fastron.G)             # <<<<<<<<<<<<<<
  *     @G.setter
+ *     def G(self, np.ndarray G):
  */
-  if (__Pyx_PrintOne(0, __pyx_n_s_a) < 0) __PYX_ERR(1, 58, __pyx_L1_error)
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((PyObject *)eigency::ndarray(__pyx_v_self->c_fastron.G)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
 
-  /* "fastronWrapper/fastronWrapper.pyx":57
- *     # TODO
+  /* "fastronWrapper/fastronWrapper.pyx":56
+ *     # Gram matrix and dataset of configurations
  *     @property
  *     def G(self):             # <<<<<<<<<<<<<<
- *         print('a')
- *         #return ndarray(self.G)
+ *         return ndarray(self.c_fastron.G)
+ *     @G.setter
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("fastronWrapper.fastronWrapper.PyFastron.G.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2563,8 +2550,8 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G___get_
   return __pyx_r;
 }
 
-/* "fastronWrapper/fastronWrapper.pyx":61
- *         #return ndarray(self.G)
+/* "fastronWrapper/fastronWrapper.pyx":59
+ *         return ndarray(self.c_fastron.G)
  *     @G.setter
  *     def G(self, np.ndarray G):             # <<<<<<<<<<<<<<
  *         self.c_fastron.G = Map[MatrixXd](G)
@@ -2577,7 +2564,7 @@ static int __pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_1G_3__set__(PyO
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_G), __pyx_ptype_5numpy_ndarray, 1, "G", 0))) __PYX_ERR(1, 61, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_G), __pyx_ptype_5numpy_ndarray, 1, "G", 0))) __PYX_ERR(1, 59, __pyx_L1_error)
   __pyx_r = __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G_2__set__(((struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *)__pyx_v_self), ((PyArrayObject *)__pyx_v_G));
 
   /* function exit code */
@@ -2595,7 +2582,7 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G_2__set__(str
   eigency::Map<Eigen::MatrixXd>  __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "fastronWrapper/fastronWrapper.pyx":62
+  /* "fastronWrapper/fastronWrapper.pyx":60
  *     @G.setter
  *     def G(self, np.ndarray G):
  *         self.c_fastron.G = Map[MatrixXd](G)             # <<<<<<<<<<<<<<
@@ -2606,12 +2593,12 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G_2__set__(str
     __pyx_t_1 = eigency::Map<Eigen::MatrixXd> (__pyx_v_G);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 62, __pyx_L1_error)
+    __PYX_ERR(1, 60, __pyx_L1_error)
   }
   __pyx_v_self->c_fastron.G = __pyx_t_1;
 
-  /* "fastronWrapper/fastronWrapper.pyx":61
- *         #return ndarray(self.G)
+  /* "fastronWrapper/fastronWrapper.pyx":59
+ *         return ndarray(self.c_fastron.G)
  *     @G.setter
  *     def G(self, np.ndarray G):             # <<<<<<<<<<<<<<
  *         self.c_fastron.G = Map[MatrixXd](G)
@@ -2629,12 +2616,12 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1G_2__set__(str
   return __pyx_r;
 }
 
-/* "fastronWrapper/fastronWrapper.pyx":65
+/* "fastronWrapper/fastronWrapper.pyx":63
  * 
  *     @property
  *     def data(self):             # <<<<<<<<<<<<<<
- *         print('a')
- *         #return ndarray(self.data)
+ *         return ndarray(self.c_fastron.data)
+ *     @data.setter
  */
 
 /* Python wrapper */
@@ -2650,32 +2637,37 @@ static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_4data_1__
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data___get__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self) {
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data___get__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "fastronWrapper/fastronWrapper.pyx":66
+  /* "fastronWrapper/fastronWrapper.pyx":64
  *     @property
  *     def data(self):
- *         print('a')             # <<<<<<<<<<<<<<
- *         #return ndarray(self.data)
+ *         return ndarray(self.c_fastron.data)             # <<<<<<<<<<<<<<
  *     @data.setter
+ *     def data(self, np.ndarray data):
  */
-  if (__Pyx_PrintOne(0, __pyx_n_s_a) < 0) __PYX_ERR(1, 66, __pyx_L1_error)
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((PyObject *)eigency::ndarray(__pyx_v_self->c_fastron.data)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 64, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
 
-  /* "fastronWrapper/fastronWrapper.pyx":65
+  /* "fastronWrapper/fastronWrapper.pyx":63
  * 
  *     @property
  *     def data(self):             # <<<<<<<<<<<<<<
- *         print('a')
- *         #return ndarray(self.data)
+ *         return ndarray(self.c_fastron.data)
+ *     @data.setter
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("fastronWrapper.fastronWrapper.PyFastron.data.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2684,8 +2676,8 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data___g
   return __pyx_r;
 }
 
-/* "fastronWrapper/fastronWrapper.pyx":69
- *         #return ndarray(self.data)
+/* "fastronWrapper/fastronWrapper.pyx":66
+ *         return ndarray(self.c_fastron.data)
  *     @data.setter
  *     def data(self, np.ndarray data):             # <<<<<<<<<<<<<<
  *         self.c_fastron.data = Map[MatrixXd](data)
@@ -2698,7 +2690,7 @@ static int __pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_4data_3__set__(
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(1, 69, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_data), __pyx_ptype_5numpy_ndarray, 1, "data", 0))) __PYX_ERR(1, 66, __pyx_L1_error)
   __pyx_r = __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data_2__set__(((struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *)__pyx_v_self), ((PyArrayObject *)__pyx_v_data));
 
   /* function exit code */
@@ -2716,7 +2708,7 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data_2__set__(
   eigency::Map<Eigen::MatrixXd>  __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "fastronWrapper/fastronWrapper.pyx":70
+  /* "fastronWrapper/fastronWrapper.pyx":67
  *     @data.setter
  *     def data(self, np.ndarray data):
  *         self.c_fastron.data = Map[MatrixXd](data)             # <<<<<<<<<<<<<<
@@ -2727,12 +2719,12 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data_2__set__(
     __pyx_t_1 = eigency::Map<Eigen::MatrixXd> (__pyx_v_data);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 70, __pyx_L1_error)
+    __PYX_ERR(1, 67, __pyx_L1_error)
   }
   __pyx_v_self->c_fastron.data = __pyx_t_1;
 
-  /* "fastronWrapper/fastronWrapper.pyx":69
- *         #return ndarray(self.data)
+  /* "fastronWrapper/fastronWrapper.pyx":66
+ *         return ndarray(self.c_fastron.data)
  *     @data.setter
  *     def data(self, np.ndarray data):             # <<<<<<<<<<<<<<
  *         self.c_fastron.data = Map[MatrixXd](data)
@@ -2750,7 +2742,7 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_4data_2__set__(
   return __pyx_r;
 }
 
-/* "fastronWrapper/fastronWrapper.pyx":74
+/* "fastronWrapper/fastronWrapper.pyx":71
  *     # number of datapoints and dimensionality
  *     @property
  *     def N(self):             # <<<<<<<<<<<<<<
@@ -2777,7 +2769,7 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1N___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "fastronWrapper/fastronWrapper.pyx":75
+  /* "fastronWrapper/fastronWrapper.pyx":72
  *     @property
  *     def N(self):
  *         return self.c_fastron.N             # <<<<<<<<<<<<<<
@@ -2785,13 +2777,13 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1N___get_
  *     def N(self, N):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_fastron.N); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 75, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_fastron.N); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fastronWrapper/fastronWrapper.pyx":74
+  /* "fastronWrapper/fastronWrapper.pyx":71
  *     # number of datapoints and dimensionality
  *     @property
  *     def N(self):             # <<<<<<<<<<<<<<
@@ -2810,7 +2802,7 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1N___get_
   return __pyx_r;
 }
 
-/* "fastronWrapper/fastronWrapper.pyx":77
+/* "fastronWrapper/fastronWrapper.pyx":74
  *         return self.c_fastron.N
  *     @N.setter
  *     def N(self, N):             # <<<<<<<<<<<<<<
@@ -2837,17 +2829,17 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1N_2__set__(str
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "fastronWrapper/fastronWrapper.pyx":78
+  /* "fastronWrapper/fastronWrapper.pyx":75
  *     @N.setter
  *     def N(self, N):
  *         self.c_fastron.N = N             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_N); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 78, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_N); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 75, __pyx_L1_error)
   __pyx_v_self->c_fastron.N = __pyx_t_1;
 
-  /* "fastronWrapper/fastronWrapper.pyx":77
+  /* "fastronWrapper/fastronWrapper.pyx":74
  *         return self.c_fastron.N
  *     @N.setter
  *     def N(self, N):             # <<<<<<<<<<<<<<
@@ -2866,7 +2858,7 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1N_2__set__(str
   return __pyx_r;
 }
 
-/* "fastronWrapper/fastronWrapper.pyx":81
+/* "fastronWrapper/fastronWrapper.pyx":78
  * 
  *     @property
  *     def d(self):             # <<<<<<<<<<<<<<
@@ -2893,7 +2885,7 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1d___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "fastronWrapper/fastronWrapper.pyx":82
+  /* "fastronWrapper/fastronWrapper.pyx":79
  *     @property
  *     def d(self):
  *         return self.c_fastron.d             # <<<<<<<<<<<<<<
@@ -2901,13 +2893,13 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1d___get_
  *     def d(self, d):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_fastron.d); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 82, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_fastron.d); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "fastronWrapper/fastronWrapper.pyx":81
+  /* "fastronWrapper/fastronWrapper.pyx":78
  * 
  *     @property
  *     def d(self):             # <<<<<<<<<<<<<<
@@ -2926,7 +2918,7 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1d___get_
   return __pyx_r;
 }
 
-/* "fastronWrapper/fastronWrapper.pyx":84
+/* "fastronWrapper/fastronWrapper.pyx":81
  *         return self.c_fastron.d
  *     @d.setter
  *     def d(self, d):             # <<<<<<<<<<<<<<
@@ -2953,17 +2945,17 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_1d_2__set__(str
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "fastronWrapper/fastronWrapper.pyx":85
+  /* "fastronWrapper/fastronWrapper.pyx":82
  *     @d.setter
  *     def d(self, d):
  *         self.c_fastron.d = d             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_d); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 85, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_d); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 82, __pyx_L1_error)
   __pyx_v_self->c_fastron.d = __pyx_t_1;
 
-  /* "fastronWrapper/fastronWrapper.pyx":84
+  /* "fastronWrapper/fastronWrapper.pyx":81
  *         return self.c_fastron.d
  *     @d.setter
  *     def d(self, d):             # <<<<<<<<<<<<<<
@@ -5778,11 +5770,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
-  {&__pyx_n_s_a, __pyx_k_a, sizeof(__pyx_k_a), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
-  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
-  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
@@ -5791,7 +5780,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_no_default___reduce___due_to_non, __pyx_k_no_default___reduce___due_to_non, sizeof(__pyx_k_no_default___reduce___due_to_non), 0, 0, 1, 0},
   {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
   {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
-  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
@@ -8123,112 +8111,6 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
         return (target_type) value;\
     }
 
-/* Print */
-  #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static PyObject *__Pyx_GetStdout(void) {
-    PyObject *f = PySys_GetObject((char *)"stdout");
-    if (!f) {
-        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
-    }
-    return f;
-}
-static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
-    int i;
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
-        PyObject* v;
-        if (PyFile_SoftSpace(f, 1)) {
-            if (PyFile_WriteString(" ", f) < 0)
-                goto error;
-        }
-        v = PyTuple_GET_ITEM(arg_tuple, i);
-        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
-            goto error;
-        if (PyString_Check(v)) {
-            char *s = PyString_AsString(v);
-            Py_ssize_t len = PyString_Size(v);
-            if (len > 0) {
-                switch (s[len-1]) {
-                    case ' ': break;
-                    case '\f': case '\r': case '\n': case '\t': case '\v':
-                        PyFile_SoftSpace(f, 0);
-                        break;
-                    default:  break;
-                }
-            }
-        }
-    }
-    if (newline) {
-        if (PyFile_WriteString("\n", f) < 0)
-            goto error;
-        PyFile_SoftSpace(f, 0);
-    }
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-}
-#else
-static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
-    PyObject* kwargs = 0;
-    PyObject* result = 0;
-    PyObject* end_string;
-    if (unlikely(!__pyx_print)) {
-        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
-        if (!__pyx_print)
-            return -1;
-    }
-    if (stream) {
-        kwargs = PyDict_New();
-        if (unlikely(!kwargs))
-            return -1;
-        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
-            goto bad;
-        if (!newline) {
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                goto bad;
-            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                goto bad;
-            }
-            Py_DECREF(end_string);
-        }
-    } else if (!newline) {
-        if (unlikely(!__pyx_print_kwargs)) {
-            __pyx_print_kwargs = PyDict_New();
-            if (unlikely(!__pyx_print_kwargs))
-                return -1;
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                return -1;
-            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                return -1;
-            }
-            Py_DECREF(end_string);
-        }
-        kwargs = __pyx_print_kwargs;
-    }
-    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
-    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
-        Py_DECREF(kwargs);
-    if (!result)
-        return -1;
-    Py_DECREF(result);
-    return 0;
-bad:
-    if (kwargs != __pyx_print_kwargs)
-        Py_XDECREF(kwargs);
-    return -1;
-}
-#endif
-
 /* Declarations */
   #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -8758,43 +8640,6 @@ raise_neg_overflow:
         "can't convert negative value to int");
     return (int) -1;
 }
-
-/* PrintOne */
-  #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    if (PyFile_SoftSpace(f, 0)) {
-        if (PyFile_WriteString(" ", f) < 0)
-            goto error;
-    }
-    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
-        goto error;
-    if (PyFile_WriteString("\n", f) < 0)
-        goto error;
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-    /* the line below is just to avoid C compiler
-     * warnings about unused functions */
-    return __Pyx_Print(f, NULL, 0);
-}
-#else
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
-    int res;
-    PyObject* arg_tuple = PyTuple_Pack(1, o);
-    if (unlikely(!arg_tuple))
-        return -1;
-    res = __Pyx_Print(stream, arg_tuple, 1);
-    Py_DECREF(arg_tuple);
-    return res;
-}
-#endif
 
 /* CIntToPy */
   static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {

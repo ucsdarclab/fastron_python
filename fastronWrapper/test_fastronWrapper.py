@@ -6,18 +6,19 @@ from pprint import pprint
 import numpy as np 
 import fastronWrapper
 
+# toy data
 data = np.array([[1.0,2.0,3.0],
                 [4.0,5.0,6.0],
                 [7.0,8.0,9.0],
                 [10.0,11.0,12.0]],
                 order='F')   # !!IMPORTANT store in colmun major, type matters
+print("Numpy data:")
 pprint(data)
 
+# initialize fastron class
 pyf = fastronWrapper.PyFastron(data)
 
-print(pyf.G)
-
-pyf.data = data
+#pyf.data = data
 
 print(pyf.N)
 print(pyf.d)
@@ -33,8 +34,9 @@ def test_attribute_access():
     assert pyf.maxSupportPoints == 0
 
     # Gram matrix and dataset of configurations
-    # TODO
-
+    # TODO: Gram matrix
+    assert pyf.data.all() == data.all()
+    
     # number of datapoints and dimensionality
     assert pyf.N == data.shape[0]
     assert pyf.d == data.shape[1]
@@ -54,7 +56,9 @@ def test_attribute_modification():
     assert pyf.maxSupportPoints == 100
 
     # Gram matrix and dataset of configurations
-    # TODO
+    # TODO: Gram matrix
+    data[0][0] == 0.0
+    assert pyf.data.all() == data.all()
 
     # number of datapoints and dimensionality
     # TODO

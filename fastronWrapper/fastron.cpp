@@ -77,6 +77,9 @@ Fastron::Fastron(Eigen::MatrixXd input_data)
     alpha = F = Eigen::VectorXd::Zero(N);
     //gramComputed.setConstant(N, 0);
     G.resize(N, N);
+
+    std::cout << "C++ data:\n" << data << std::endl;//TODO
+    std::cout << "C++ G:\n" << G << std::endl;//TODO
 };
 
 Fastron::~Fastron()

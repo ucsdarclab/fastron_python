@@ -52,19 +52,16 @@ cdef class PyFastron:
         self.c_fastron.maxSupportPoints = maxSupportPoints
 
     # Gram matrix and dataset of configurations
-    # TODO
     @property
     def G(self):
-        print('a')
-        #return ndarray(self.G)
+        return ndarray(self.c_fastron.G)
     @G.setter
     def G(self, np.ndarray G):
         self.c_fastron.G = Map[MatrixXd](G)
 
     @property
     def data(self):
-        print('a')
-        #return ndarray(self.data)
+        return ndarray(self.c_fastron.data)
     @data.setter
     def data(self, np.ndarray data):
         self.c_fastron.data = Map[MatrixXd](data)
