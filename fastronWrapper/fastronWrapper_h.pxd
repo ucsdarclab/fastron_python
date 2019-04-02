@@ -1,4 +1,5 @@
 # distutils: language = c++
+# cython: language_level=3
 
 from eigency.core cimport *
 
@@ -42,4 +43,13 @@ cdef extern from "fastron.h":
         # void sparsify()
 
         # perform proxy check
-        Map[ArrayXd] eval(Map[MatrixXd]*)
+        Map[ArrayXd] eval(Map[MatrixXd] *ptr_query_points) # not work
+        Map[ArrayXd] eval(Map[MatrixXd]) # overload
+
+        # active learning parameters: allowance (number of new samples), kNS (number of points near supports), sigma (Gaussian sampling std), exploitP (proportion of exploitation samples)
+        int allowance, kNS
+        double sigma, exploitP
+        void activeLearning()
+
+        # kinematics-based collision detector
+        # TODO

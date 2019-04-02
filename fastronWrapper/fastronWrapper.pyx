@@ -1,4 +1,5 @@
 # distutils: language = c++
+# cython: language_level=3
 
 cimport numpy as np
 from fastronWrapper_h cimport Fastron
@@ -10,7 +11,7 @@ cdef class PyFastron:
     cdef Fastron c_fastron
 
     def __cinit__(self, np.ndarray[np.float64_t, ndim=2] data):
-    # type matters, must use float type
+        # type matters, must use float type
         #self.c_fastron = Fastron()
         self.c_fastron = Fastron(Map[MatrixXd](data))
     
@@ -59,6 +60,7 @@ cdef class PyFastron:
         return ndarray(self.c_fastron.G)
     @G.setter
     def G(self, np.ndarray[np.float64_t, ndim=2] G):
+        # type matters, must use float type
         self.c_fastron.G = Map[MatrixXd](G)
 
     @property
@@ -66,6 +68,7 @@ cdef class PyFastron:
         return ndarray(self.c_fastron.data)
     @data.setter
     def data(self, np.ndarray[np.float64_t, ndim=2] data):
+        # type matters, must use float type
         self.c_fastron.data = Map[MatrixXd](data)
 
     # number of datapoints and dimensionality
@@ -74,6 +77,7 @@ cdef class PyFastron:
         return self.c_fastron.N
     @N.setter
     def N(self, N):
+        assert type(N) == int
         self.c_fastron.N = N
 
     @property
@@ -81,6 +85,7 @@ cdef class PyFastron:
         return self.c_fastron.d
     @d.setter
     def d(self, d):
+        assert type(d) == int
         self.c_fastron.d = d
 
     # weights, hypothesis, and true labels
@@ -88,21 +93,24 @@ cdef class PyFastron:
     def alpha(self):
         return ndarray(self.c_fastron.alpha)
     @alpha.setter
-    def alpha(self, np.ndarray alpha):
+    def alpha(self, np.ndarray[np.float64_t, ndim=2] alpha):
+        # type matters, must use float type
         self.c_fastron.alpha = Map[ArrayXd](alpha)
     
     @property
     def F(self):
         return ndarray(self.c_fastron.F)
     @F.setter
-    def F(self, np.ndarray F):
+    def F(self, np.ndarray[np.float64_t, ndim=2] F):
+        # type matters, must use float type
         self.c_fastron.F = Map[ArrayXd](F)
 
     @property
     def y(self):
         return ndarray(self.c_fastron.y)
     @y.setter
-    def y(self, np.ndarray y):
+    def y(self, np.ndarray[np.float64_t, ndim=2] y):
+        # type matters, must use float type
         self.c_fastron.y = Map[ArrayXd](y)
 
     
@@ -121,7 +129,44 @@ cdef class PyFastron:
     # fastronWrapper/fastron.cpp:244:16: error: ‘Eigen::ArrayXd {aka class Eigen::Array<double, -1, 1>}’ has no member named ‘sign’; did you mean ‘sin’?
     # return acc.sign(); put the latest eigen under eigency'''
 
-    # perform proxy check
+    # # perform proxy check
+    # # TODO pointer does not work
+    # def eval(self, np.ndarray[np.float64_t, ndim=2] query_points):
+    #     cdef Map[MatrixXd]* ptr_query_points
+    #     ptr_query_points = (&Map[MatrixXd](query_points))
+    #     # cdef PyObject* ptr_query_points = <PyObject*>Map[MatrixXd](query_points)
+    #     return ndarray(self.c_fastron.eval(ptr_query_points))#ptr_query_points))
+
     def eval(self, np.ndarray[np.float64_t, ndim=2] query_points):
-        # cdef PyObject* ptr_query_points = <PyObject*>Map[MatrixXd](query_points)
-        return ndarray(self.c_fastron.eval(&(Map[MatrixXd](query_points))))#ptr_query_points))
+        return ndarray(self.c_fastron.eval(Map[MatrixXd](query_points)))
+
+    # active learning parameters: allowance (number of new samples), kNS (number of points near supports), sigma (Gaussian sampling std), exploitP (proportion of exploitation samples)
+    @property
+    def allowance(self):
+        return self.c_fastron.allowance
+    @allowance.setter
+    def allowance(self, allowance):
+        assert type(allowance) == int
+        self.c_fastron.allowance = allowance
+    
+    @property
+    def kNS(self):
+        return self.c_fastron.kNS
+    @kNS.setter
+    def kNS(self, kNS):
+        assert type(kNS) == int
+        self.c_fastron.kNS = kNS
+
+    @property
+    def sigma(self):
+        return self.c_fastron.sigma
+    @sigma.setter
+    def sigma(self, sigma):
+        self.c_fastron.sigma = sigma
+
+    @property
+    def exploitP(self):
+        return self.c_fastron.exploitP
+    @exploitP.setter
+    def exploitP(self, exploitP):
+        self.c_fastron.exploitP = exploitP

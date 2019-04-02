@@ -7,10 +7,10 @@ import numpy as np
 import fastronWrapper
 
 # toy data
-data = np.array([[1.0,1.0,1.0],
-                [4.0,5.0,6.0],
-                [20.0,28.0,29.0],
-                [20.0,21.0,22.0]],
+data = np.array([[1.0,1.0,1.0,1.0],
+                [4.0,4.0,4.0,4.0],
+                [20.0,20.0,20.0,20.0],
+                [20.0,20.0,20.0,20.0]],
                 order='F')   # !!IMPORTANT store in colmun major, type matters
 print("Numpy data:")
 pprint(data)
@@ -19,8 +19,18 @@ pprint(data)
 pyf = fastronWrapper.PyFastron(data)
 
 # update model
-pyf.y = np.array([[1],[1],[-1],[-1]])
+pyf.y = np.array([[1.],[1.],[-1.],[-1.]])
 pyf.maxSupportPoints = 100
 pyf.updateModel()
 
+# train error
+print("y:\n", pyf.y)
+print("F:\n", pyf.F)
+
 # proxy check
+query_points = np.array([[1.0,1.0,1.0,1.0],
+                [4.0,4.0,4.0,4.0],
+                [20.0,20.0,20.0,20.0],
+                [20.0,20.0,20.0,20.0]],
+                order='F')
+print(pyf.eval(query_points))

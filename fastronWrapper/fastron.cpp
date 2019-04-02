@@ -80,6 +80,7 @@ Fastron::Fastron(Eigen::MatrixXd input_data)
 
     std::cout << "C++ data:\n" << data << std::endl;//TODO
     std::cout << "C++ G:\n" << G << std::endl;//TODO
+    std::cout << "C++ y:\n" << y << std::endl;//TODO
 };
 
 Fastron::~Fastron()
@@ -244,58 +245,96 @@ Eigen::ArrayXd Fastron::eval(Eigen::MatrixXd *query_points)
     return acc.sign();
 }
 
-// void Fastron::activeLearning()
-// {
-//     int N_prev = N;
-//     N += allowance;
+// Overload
+Eigen::ArrayXd Fastron::eval(Eigen::MatrixXd query_points)
+{
+    // returns -1.0 for collision-free, otherwise +1.0
+    Eigen::ArrayXd acc(query_points.rows());
+    Eigen::ArrayXd temp(N);
 
-//     y.conservativeResize(N);
-//     y.tail(allowance) = 0;
+    for (int i = 0; i < query_points.rows(); ++i)
+    {
+        // rat quad. loop unrolling is faster.
+        switch (d)
+        {
+        case 7:
+            temp = 2.0 / g + (data.col(0).array() - (query_points)(i, 0)).square() + (data.col(1).array() - (query_points)(i, 1)).square() + (data.col(2).array() - (query_points)(i, 2)).square() + (data.col(3).array() - (query_points)(i, 3)).square() + (data.col(4).array() - (query_points)(i, 4)).square() + (data.col(5).array() - (query_points)(i, 5)).square() + (data.col(6).array() - (query_points)(i, 6)).square();
+            break;
+        case 6:
+            temp = 2.0 / g + (data.col(0).array() - (query_points)(i, 0)).square() + (data.col(1).array() - (query_points)(i, 1)).square() + (data.col(2).array() - (query_points)(i, 2)).square() + (data.col(3).array() - (query_points)(i, 3)).square() + (data.col(4).array() - (query_points)(i, 4)).square() + (data.col(5).array() - (query_points)(i, 5)).square();
+            break;
+        case 5:
+            temp = 2.0 / g + (data.col(0).array() - (query_points)(i, 0)).square() + (data.col(1).array() - (query_points)(i, 1)).square() + (data.col(2).array() - (query_points)(i, 2)).square() + (data.col(3).array() - (query_points)(i, 3)).square() + (data.col(4).array() - (query_points)(i, 4)).square();
+            break;
+        case 4:
+            temp = 2.0 / g + (data.col(0).array() - (query_points)(i, 0)).square() + (data.col(1).array() - (query_points)(i, 1)).square() + (data.col(2).array() - (query_points)(i, 2)).square() + (data.col(3).array() - (query_points)(i, 3)).square();
+            break;
+        default:
+            temp = 2.0 / g + (data.col(0).array() - (query_points)(i, 0)).square();
+            for (int j = 1; j < d; ++j)
+                temp += (data.col(j).array() - (query_points)(i, j)).square();
+        }
+        acc(i) = (alpha / (temp * temp)).sum();
+        std::cout << i << std::endl;
+    }
 
-//     // make room for new data
-//     data.conservativeResize(N, Eigen::NoChange);
+    temp.resize(0);
+    std::cout << "C++ acc:\n" << acc << std::endl;
+    return acc.sign();
+}
 
-//     // START ACTIVE LEARNING
-//     // copy support points as many times as possible
-//     int k;
-//     if (allowance / N_prev)
-//     {
-//         // Exploitation
-//         for (k = 0; k < std::min(kNS, allowance / N_prev); ++k)
-//             data.block((k + 1) * N_prev, 0, N_prev, d) = (data.block(0, 0, N_prev, d) + sigma * randn(N_prev, d)).cwiseMin(1.0).cwiseMax(-1.0);
+void Fastron::activeLearning()
+{
+    int N_prev = N;
+    N += allowance;
 
-//         // Exploration
-//         data.bottomRows(allowance - k * N_prev) = Eigen::MatrixXd::Random(allowance - k * N_prev, d);
-//     }
-//     else
-//     {
-//         std::vector<int> idx;
-//         for (int i = 0; i < N_prev; ++i)
-//             idx.push_back(i);
-//         std::random_shuffle(idx.begin(), idx.end());
+    y.conservativeResize(N);
+    y.tail(allowance) = 0;
 
-//         for (int i = 0; i < allowance; i++)
-//             data.row(i + N_prev) = (data.row(idx[i]) + sigma * randn(1, d)).cwiseMin(1.0).cwiseMax(-1.0);
-//     }
-//     // END ACTIVE LEARNING
+    // make room for new data
+    data.conservativeResize(N, Eigen::NoChange);
 
-//     // Update Gram matrix
-//     if (G.cols() < N)
-//         G.conservativeResize(N, N);
-//     gramComputed.conservativeResize(N);
-//     gramComputed.tail(allowance) = 0;
+    // START ACTIVE LEARNING
+    // copy support points as many times as possible
+    int k;
+    if (allowance / N_prev)
+    {
+        // Exploitation
+        for (k = 0; k < std::min(kNS, allowance / N_prev); ++k)
+            data.block((k + 1) * N_prev, 0, N_prev, d) = (data.block(0, 0, N_prev, d) + sigma * randn(N_prev, d)).cwiseMin(1.0).cwiseMax(-1.0);
 
-//     // Update hypothesis vector and Gram matrix
-//     F.conservativeResize(N);
-//     Eigen::ArrayXi idx = find(alpha);
-//     for (int i = 0; i < idx.size(); ++i)
-//         computeGramMatrixCol(idx(i), N_prev); // this is the slowest part of this function
+        // Exploration
+        data.bottomRows(allowance - k * N_prev) = Eigen::MatrixXd::Random(allowance - k * N_prev, d);
+    }
+    else
+    {
+        std::vector<int> idx;
+        for (int i = 0; i < N_prev; ++i)
+            idx.push_back(i);
+        std::random_shuffle(idx.begin(), idx.end());
 
-//     F.tail(allowance) = (G.block(N_prev, 0, allowance, N_prev) * alpha.matrix()).array();
+        for (int i = 0; i < allowance; i++)
+            data.row(i + N_prev) = (data.row(idx[i]) + sigma * randn(1, d)).cwiseMin(1.0).cwiseMax(-1.0);
+    }
+    // END ACTIVE LEARNING
 
-//     alpha.conservativeResize(N);
-//     alpha.tail(allowance) = 0;
-// }
+    // Update Gram matrix
+    if (G.cols() < N)
+        G.conservativeResize(N, N);
+    gramComputed.conservativeResize(N);
+    gramComputed.tail(allowance) = 0;
+
+    // Update hypothesis vector and Gram matrix
+    F.conservativeResize(N);
+    Eigen::ArrayXi idx = find(alpha);
+    for (int i = 0; i < idx.size(); ++i)
+        computeGramMatrixCol(idx(i), N_prev); // this is the slowest part of this function
+
+    F.tail(allowance) = (G.block(N_prev, 0, allowance, N_prev) * alpha.matrix()).array();
+
+    alpha.conservativeResize(N);
+    alpha.tail(allowance) = 0;
+}
 
 double Fastron::kcd(Eigen::RowVectorXd query_point, int colDetector = 0)
 {

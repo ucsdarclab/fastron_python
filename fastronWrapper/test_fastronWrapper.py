@@ -29,6 +29,9 @@ print(pyf.alpha)
 print(pyf.F)
 print(pyf.y)
 
+print("sigma")
+print(pyf.sigma)
+
 def test_attribute_access():
     # model update parameters: gamma (kernel width), beta (conditional bias)
     assert pyf.g == 10
@@ -50,6 +53,13 @@ def test_attribute_access():
     assert pyf.alpha.all() == np.zeros([pyf.N, 1]).all()
     assert pyf.F.all() == np.zeros([pyf.N, 1]).all()
     assert pyf.y.all() == np.zeros([pyf.N, 1]).all()
+
+    # active learning parameters: allowance (number of new samples), kNS (number of points near supports), sigma (Gaussian sampling std), exploitP (proportion of exploitation samples)
+    assert pyf.allowance == 800
+    assert pyf.kNS == 4
+    #assert pyf.sigma == 0
+    assert pyf.exploitP == 0.5
+    
 
 def test_attribute_modification():
     # model update parameters: gamma (kernel width), beta (conditional bias)
@@ -75,5 +85,14 @@ def test_attribute_modification():
     # weights, hypothesis, and true labels
     # TODO
 
+
+    # active learning parameters: allowance (number of new samples), kNS (number of points near supports), sigma (Gaussian sampling std), exploitP (proportion of exploitation samples)
+    pyf.allowance = 1000
+    pyf.kNS = 5
+    pyf.exploitP = 0.8
+    assert pyf.allowance == 1000
+    assert pyf.kNS == 5
+    #assert pyf.sigma == 0
+    assert pyf.exploitP == 0.8
 
     

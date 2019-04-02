@@ -65,6 +65,7 @@ class Fastron {
 
         // perform proxy check
         Eigen::ArrayXd eval(Eigen::MatrixXd* query_points);
+        Eigen::ArrayXd eval(Eigen::MatrixXd query_points);  //overload
 
         // active learning parameters: allowance (number of new samples), kNS (number of points near supports), sigma (Gaussian sampling std), exploitP (proportion of exploitation samples)
         int allowance = 800, kNS = 4;
