@@ -4,11 +4,13 @@ cimport numpy as np
 from fastronWrapper_h cimport Fastron
 from eigency.core cimport *
 
+from cpython.ref cimport PyObject
 
 cdef class PyFastron:
     cdef Fastron c_fastron
 
     def __cinit__(self, np.ndarray[np.float64_t, ndim=2] data):
+    # type matters, must use float type
         #self.c_fastron = Fastron()
         self.c_fastron = Fastron(Map[MatrixXd](data))
     
@@ -56,14 +58,14 @@ cdef class PyFastron:
     def G(self):
         return ndarray(self.c_fastron.G)
     @G.setter
-    def G(self, np.ndarray G):
+    def G(self, np.ndarray[np.float64_t, ndim=2] G):
         self.c_fastron.G = Map[MatrixXd](G)
 
     @property
     def data(self):
         return ndarray(self.c_fastron.data)
     @data.setter
-    def data(self, np.ndarray data):
+    def data(self, np.ndarray[np.float64_t, ndim=2] data):
         self.c_fastron.data = Map[MatrixXd](data)
 
     # number of datapoints and dimensionality
@@ -81,11 +83,45 @@ cdef class PyFastron:
     def d(self, d):
         self.c_fastron.d = d
 
+    # weights, hypothesis, and true labels
+    @property
+    def alpha(self):
+        return ndarray(self.c_fastron.alpha)
+    @alpha.setter
+    def alpha(self, np.ndarray alpha):
+        self.c_fastron.alpha = Map[ArrayXd](alpha)
+    
+    @property
+    def F(self):
+        return ndarray(self.c_fastron.F)
+    @F.setter
+    def F(self, np.ndarray F):
+        self.c_fastron.F = Map[ArrayXd](F)
 
-    # def get_area(self):
-    #     return self.c_rect.getArea()
+    @property
+    def y(self):
+        return ndarray(self.c_fastron.y)
+    @y.setter
+    def y(self, np.ndarray y):
+        self.c_fastron.y = Map[ArrayXd](y)
 
-    # def get_size(self):
-    #     cdef int width, height
-    #     self.c_rect.getSize(&width, &height)
-    #     return width, height
+    
+    # functions and variables for model update
+    def updateModel(self):
+        self.c_fastron.updateModel()
+
+    # def calculateMarginRemoved(self, idx):
+    #     cdef int* idx_ptr = idx
+    #     #cdef double max
+    #     self.c_fastron.calculateMarginRemoved(idx_ptr)
+    #     #return max
+    # def computeGramMatrixCol(self, int idx, int startIdx):
+    #     self.c_fastron.computeGramMatrixCol(idx, startIdx)
+
+    # fastronWrapper/fastron.cpp:244:16: error: ‘Eigen::ArrayXd {aka class Eigen::Array<double, -1, 1>}’ has no member named ‘sign’; did you mean ‘sin’?
+    # return acc.sign(); put the latest eigen under eigency'''
+
+    # perform proxy check
+    def eval(self, np.ndarray[np.float64_t, ndim=2] query_points):
+        # cdef PyObject* ptr_query_points = <PyObject*>Map[MatrixXd](query_points)
+        return ndarray(self.c_fastron.eval(&(Map[MatrixXd](query_points))))#ptr_query_points))

@@ -75,7 +75,7 @@ Fastron::Fastron(Eigen::MatrixXd input_data)
     // Initialization
     y = Eigen::ArrayXd::Zero(N);
     alpha = F = Eigen::VectorXd::Zero(N);
-    //gramComputed.setConstant(N, 0);
+    gramComputed.setConstant(N, 0);   //?
     G.resize(N, N);
 
     std::cout << "C++ data:\n" << data << std::endl;//TODO
@@ -126,22 +126,31 @@ void Fastron::updateModel()
 
     double delta, maxG;
     int NN;
+
+    std::cout << "In update model" << std::endl;    // TODO
     for (int i = 0; i < maxUpdates; ++i)
     {
         margin = y * F;
+
+        std::cout << gramComputed << std::endl;    // TODO
         if (margin.minCoeff(&idx) <= 0)
         {
+            std::cout << "In update model 0" << std::endl;    // TODO
+            std::cout << gramComputed(idx) << std::endl;    // TODO
             if (!gramComputed(idx))
+                std::cout << "In update model 1" << std::endl;    // TODO
                 computeGramMatrixCol(idx);
             delta = (y(idx) < 0 ? -1.0 : beta) - F(idx);
             if (alpha(idx)) // already a support point, doesn't hurt to modify it
             {
+                std::cout << "In update model 2" << std::endl;    // TODO
                 alpha(idx) += delta;
                 F += G.block(0, idx, N, 1).array() * delta;
                 continue;
             }
             else if (numberSupportPoints < maxSupportPoints) // adding new support point?
             {
+                std::cout << "In update model 3" << std::endl;    // TODO
                 alpha(idx) = delta;
                 F += G.block(0, idx, N, 1).array() * delta;
                 ++numberSupportPoints;
@@ -157,6 +166,7 @@ void Fastron::updateModel()
             alpha(idx) = 0;
             margin = y * F;
             --numberSupportPoints;
+            std::cout << "In update model" << std::endl;    // TODO
             continue;
         }
 
@@ -199,40 +209,40 @@ void Fastron::sparsify()
     keepSelectRows(&y, retainIdx);
 }
 
-// Eigen::ArrayXd Fastron::eval(Eigen::MatrixXd *query_points)
-// {
-//     // returns -1.0 for collision-free, otherwise +1.0
-//     Eigen::ArrayXd acc(query_points->rows());
-//     Eigen::ArrayXd temp(N);
+Eigen::ArrayXd Fastron::eval(Eigen::MatrixXd *query_points)
+{
+    // returns -1.0 for collision-free, otherwise +1.0
+    Eigen::ArrayXd acc(query_points->rows());
+    Eigen::ArrayXd temp(N);
 
-//     for (int i = 0; i < query_points->rows(); ++i)
-//     {
-//         // rat quad. loop unrolling is faster.
-//         switch (d)
-//         {
-//         case 7:
-//             temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square() + (data.col(1).array() - (*query_points)(i, 1)).square() + (data.col(2).array() - (*query_points)(i, 2)).square() + (data.col(3).array() - (*query_points)(i, 3)).square() + (data.col(4).array() - (*query_points)(i, 4)).square() + (data.col(5).array() - (*query_points)(i, 5)).square() + (data.col(6).array() - (*query_points)(i, 6)).square();
-//             break;
-//         case 6:
-//             temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square() + (data.col(1).array() - (*query_points)(i, 1)).square() + (data.col(2).array() - (*query_points)(i, 2)).square() + (data.col(3).array() - (*query_points)(i, 3)).square() + (data.col(4).array() - (*query_points)(i, 4)).square() + (data.col(5).array() - (*query_points)(i, 5)).square();
-//             break;
-//         case 5:
-//             temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square() + (data.col(1).array() - (*query_points)(i, 1)).square() + (data.col(2).array() - (*query_points)(i, 2)).square() + (data.col(3).array() - (*query_points)(i, 3)).square() + (data.col(4).array() - (*query_points)(i, 4)).square();
-//             break;
-//         case 4:
-//             temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square() + (data.col(1).array() - (*query_points)(i, 1)).square() + (data.col(2).array() - (*query_points)(i, 2)).square() + (data.col(3).array() - (*query_points)(i, 3)).square();
-//             break;
-//         default:
-//             temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square();
-//             for (int j = 1; j < d; ++j)
-//                 temp += (data.col(j).array() - (*query_points)(i, j)).square();
-//         }
-//         acc(i) = (alpha / (temp * temp)).sum();
-//     }
+    for (int i = 0; i < query_points->rows(); ++i)
+    {
+        // rat quad. loop unrolling is faster.
+        switch (d)
+        {
+        case 7:
+            temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square() + (data.col(1).array() - (*query_points)(i, 1)).square() + (data.col(2).array() - (*query_points)(i, 2)).square() + (data.col(3).array() - (*query_points)(i, 3)).square() + (data.col(4).array() - (*query_points)(i, 4)).square() + (data.col(5).array() - (*query_points)(i, 5)).square() + (data.col(6).array() - (*query_points)(i, 6)).square();
+            break;
+        case 6:
+            temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square() + (data.col(1).array() - (*query_points)(i, 1)).square() + (data.col(2).array() - (*query_points)(i, 2)).square() + (data.col(3).array() - (*query_points)(i, 3)).square() + (data.col(4).array() - (*query_points)(i, 4)).square() + (data.col(5).array() - (*query_points)(i, 5)).square();
+            break;
+        case 5:
+            temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square() + (data.col(1).array() - (*query_points)(i, 1)).square() + (data.col(2).array() - (*query_points)(i, 2)).square() + (data.col(3).array() - (*query_points)(i, 3)).square() + (data.col(4).array() - (*query_points)(i, 4)).square();
+            break;
+        case 4:
+            temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square() + (data.col(1).array() - (*query_points)(i, 1)).square() + (data.col(2).array() - (*query_points)(i, 2)).square() + (data.col(3).array() - (*query_points)(i, 3)).square();
+            break;
+        default:
+            temp = 2.0 / g + (data.col(0).array() - (*query_points)(i, 0)).square();
+            for (int j = 1; j < d; ++j)
+                temp += (data.col(j).array() - (*query_points)(i, j)).square();
+        }
+        acc(i) = (alpha / (temp * temp)).sum();
+    }
 
-//     temp.resize(0);
-//     return acc.sign();
-// }
+    temp.resize(0);
+    return acc.sign();
+}
 
 // void Fastron::activeLearning()
 // {

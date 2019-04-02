@@ -2,6 +2,8 @@
 
 from eigency.core cimport *
 
+from cpython.ref cimport PyObject
+
 # cdef extern from "../fastron/src/fastron.cpp":
 cdef extern from "fastron.cpp":
     pass
@@ -28,3 +30,16 @@ cdef extern from "fastron.h":
 
         # number of datapoints and dimensionality
         int N, d
+
+        # weights, hypothesis, and true labels
+        Map[ArrayXd] alpha, F, y
+
+        # functions and variables for model update
+        void updateModel()
+        # double calculateMarginRemoved(int *idx)
+        # Map[ArrayXi] gramComputed
+        # void computeGramMatrixCol(int idx, int startIdx)
+        # void sparsify()
+
+        # perform proxy check
+        Map[ArrayXd] eval(Map[MatrixXd]*)

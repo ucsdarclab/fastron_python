@@ -24,6 +24,11 @@ print(pyf.N)
 print(pyf.d)
 print(data.shape)
 
+print("ArrayXd")
+print(pyf.alpha)
+print(pyf.F)
+print(pyf.y)
+
 def test_attribute_access():
     # model update parameters: gamma (kernel width), beta (conditional bias)
     assert pyf.g == 10
@@ -41,6 +46,10 @@ def test_attribute_access():
     assert pyf.N == data.shape[0]
     assert pyf.d == data.shape[1]
 
+    # weights, hypothesis, and true labels
+    assert pyf.alpha.all() == np.zeros([pyf.N, 1]).all()
+    assert pyf.F.all() == np.zeros([pyf.N, 1]).all()
+    assert pyf.y.all() == np.zeros([pyf.N, 1]).all()
 
 def test_attribute_modification():
     # model update parameters: gamma (kernel width), beta (conditional bias)
@@ -61,6 +70,9 @@ def test_attribute_modification():
     assert pyf.data.all() == data.all()
 
     # number of datapoints and dimensionality
+    # TODO
+
+    # weights, hypothesis, and true labels
     # TODO
 
 
