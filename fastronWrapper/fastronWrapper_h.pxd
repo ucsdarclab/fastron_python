@@ -43,7 +43,7 @@ cdef extern from "fastron.h":
         # void sparsify()
 
         # perform proxy check
-        Map[ArrayXd] eval(Map[MatrixXd] *ptr_query_points) # not work
+        #Map[ArrayXd] eval(Map[MatrixXd] *ptr_query_points) # not work
         Map[ArrayXd] eval(Map[MatrixXd]) # overload
 
         # active learning parameters: allowance (number of new samples), kNS (number of points near supports), sigma (Gaussian sampling std), exploitP (proportion of exploitation samples)
@@ -52,4 +52,7 @@ cdef extern from "fastron.h":
         void activeLearning()
 
         # kinematics-based collision detector
-        # TODO
+        # virtual function can not work, call kcd externally
+        
+        # update all labels in 
+        void updateLabels(Map[ArrayXd])

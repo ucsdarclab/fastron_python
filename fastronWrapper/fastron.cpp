@@ -78,9 +78,9 @@ Fastron::Fastron(Eigen::MatrixXd input_data)
     gramComputed.setConstant(N, 0);   //?
     G.resize(N, N);
 
-    std::cout << "C++ data:\n" << data << std::endl;//TODO
-    std::cout << "C++ G:\n" << G << std::endl;//TODO
-    std::cout << "C++ y:\n" << y << std::endl;//TODO
+    // std::cout << "C++ data:\n" << data << std::endl;//TODO
+    // std::cout << "C++ G:\n" << G << std::endl;//TODO
+    // std::cout << "C++ y:\n" << y << std::endl;//TODO
 };
 
 Fastron::~Fastron()
@@ -128,30 +128,23 @@ void Fastron::updateModel()
     double delta, maxG;
     int NN;
 
-    std::cout << "In update model" << std::endl;    // TODO
     for (int i = 0; i < maxUpdates; ++i)
     {
         margin = y * F;
 
-        std::cout << gramComputed << std::endl;    // TODO
         if (margin.minCoeff(&idx) <= 0)
         {
-            std::cout << "In update model 0" << std::endl;    // TODO
-            std::cout << gramComputed(idx) << std::endl;    // TODO
             if (!gramComputed(idx))
-                std::cout << "In update model 1" << std::endl;    // TODO
                 computeGramMatrixCol(idx);
             delta = (y(idx) < 0 ? -1.0 : beta) - F(idx);
             if (alpha(idx)) // already a support point, doesn't hurt to modify it
             {
-                std::cout << "In update model 2" << std::endl;    // TODO
                 alpha(idx) += delta;
                 F += G.block(0, idx, N, 1).array() * delta;
                 continue;
             }
             else if (numberSupportPoints < maxSupportPoints) // adding new support point?
             {
-                std::cout << "In update model 3" << std::endl;    // TODO
                 alpha(idx) = delta;
                 F += G.block(0, idx, N, 1).array() * delta;
                 ++numberSupportPoints;
@@ -167,7 +160,6 @@ void Fastron::updateModel()
             alpha(idx) = 0;
             margin = y * F;
             --numberSupportPoints;
-            std::cout << "In update model" << std::endl;    // TODO
             continue;
         }
 
@@ -352,4 +344,11 @@ void Fastron::updateLabels()
 {
     for (int i = 0; i < N; ++i)
         y(i) = kcd(data.row(i));
+}
+
+// overload updateLabels to prevent calling the virtual function
+void Fastron::updateLabels(Eigen::ArrayXd yKcd)
+{
+    for (int i = 0; i < N; ++i)
+        y(i) = yKcd(i);
 }

@@ -1858,8 +1858,10 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_5sigma___
 static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_5sigma_2__set__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, PyObject *__pyx_v_sigma); /* proto */
 static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8exploitP___get__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
 static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8exploitP_2__set__(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, PyObject *__pyx_v_exploitP); /* proto */
-static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_6__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_6activeLearning(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8updateLabels(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, PyArrayObject *__pyx_v_yKcd); /* proto */
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_10__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_12__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tp_new_14fastronWrapper_14fastronWrapper_PyFastron(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -4117,6 +4119,7 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8exploitP
  *     @exploitP.setter
  *     def exploitP(self, exploitP):             # <<<<<<<<<<<<<<
  *         self.c_fastron.exploitP = exploitP
+ * 
  */
 
 /* Python wrapper */
@@ -4142,6 +4145,8 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8exploitP_2__se
  *     @exploitP.setter
  *     def exploitP(self, exploitP):
  *         self.c_fastron.exploitP = exploitP             # <<<<<<<<<<<<<<
+ * 
+ *     def activeLearning(self):
  */
   __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_exploitP); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 172, __pyx_L1_error)
   __pyx_v_self->c_fastron.exploitP = __pyx_t_1;
@@ -4151,6 +4156,7 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8exploitP_2__se
  *     @exploitP.setter
  *     def exploitP(self, exploitP):             # <<<<<<<<<<<<<<
  *         self.c_fastron.exploitP = exploitP
+ * 
  */
 
   /* function exit code */
@@ -4164,6 +4170,139 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8exploitP_2__se
   return __pyx_r;
 }
 
+/* "fastronWrapper/fastronWrapper.pyx":174
+ *         self.c_fastron.exploitP = exploitP
+ * 
+ *     def activeLearning(self):             # <<<<<<<<<<<<<<
+ *         self.c_fastron.activeLearning()
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_7activeLearning(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_7activeLearning(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("activeLearning (wrapper)", 0);
+  __pyx_r = __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_6activeLearning(((struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_6activeLearning(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("activeLearning", 0);
+
+  /* "fastronWrapper/fastronWrapper.pyx":175
+ * 
+ *     def activeLearning(self):
+ *         self.c_fastron.activeLearning()             # <<<<<<<<<<<<<<
+ * 
+ *     # kinematics-based collision detector
+ */
+  __pyx_v_self->c_fastron.activeLearning();
+
+  /* "fastronWrapper/fastronWrapper.pyx":174
+ *         self.c_fastron.exploitP = exploitP
+ * 
+ *     def activeLearning(self):             # <<<<<<<<<<<<<<
+ *         self.c_fastron.activeLearning()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "fastronWrapper/fastronWrapper.pyx":181
+ * 
+ *     # update all labels in
+ *     def updateLabels(self, np.ndarray[np.float64_t, ndim=2] yKcd):             # <<<<<<<<<<<<<<
+ *         self.c_fastron.updateLabels(Map[ArrayXd](yKcd))
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_9updateLabels(PyObject *__pyx_v_self, PyObject *__pyx_v_yKcd); /*proto*/
+static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_9updateLabels(PyObject *__pyx_v_self, PyObject *__pyx_v_yKcd) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("updateLabels (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_yKcd), __pyx_ptype_5numpy_ndarray, 1, "yKcd", 0))) __PYX_ERR(1, 181, __pyx_L1_error)
+  __pyx_r = __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8updateLabels(((struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *)__pyx_v_self), ((PyArrayObject *)__pyx_v_yKcd));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8updateLabels(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, PyArrayObject *__pyx_v_yKcd) {
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_yKcd;
+  __Pyx_Buffer __pyx_pybuffer_yKcd;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  eigency::Map<Eigen::ArrayXd>  __pyx_t_1;
+  __Pyx_RefNannySetupContext("updateLabels", 0);
+  __pyx_pybuffer_yKcd.pybuffer.buf = NULL;
+  __pyx_pybuffer_yKcd.refcount = 0;
+  __pyx_pybuffernd_yKcd.data = NULL;
+  __pyx_pybuffernd_yKcd.rcbuffer = &__pyx_pybuffer_yKcd;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_yKcd.rcbuffer->pybuffer, (PyObject*)__pyx_v_yKcd, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(1, 181, __pyx_L1_error)
+  }
+  __pyx_pybuffernd_yKcd.diminfo[0].strides = __pyx_pybuffernd_yKcd.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_yKcd.diminfo[0].shape = __pyx_pybuffernd_yKcd.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_yKcd.diminfo[1].strides = __pyx_pybuffernd_yKcd.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_yKcd.diminfo[1].shape = __pyx_pybuffernd_yKcd.rcbuffer->pybuffer.shape[1];
+
+  /* "fastronWrapper/fastronWrapper.pyx":182
+ *     # update all labels in
+ *     def updateLabels(self, np.ndarray[np.float64_t, ndim=2] yKcd):
+ *         self.c_fastron.updateLabels(Map[ArrayXd](yKcd))             # <<<<<<<<<<<<<<
+ */
+  try {
+    __pyx_t_1 = eigency::Map<Eigen::ArrayXd> (((PyArrayObject *)__pyx_v_yKcd));
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    __PYX_ERR(1, 182, __pyx_L1_error)
+  }
+  __pyx_v_self->c_fastron.updateLabels(__pyx_t_1);
+
+  /* "fastronWrapper/fastronWrapper.pyx":181
+ * 
+ *     # update all labels in
+ *     def updateLabels(self, np.ndarray[np.float64_t, ndim=2] yKcd):             # <<<<<<<<<<<<<<
+ *         self.c_fastron.updateLabels(Map[ArrayXd](yKcd))
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_yKcd.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("fastronWrapper.fastronWrapper.PyFastron.updateLabels", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_yKcd.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
 /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
@@ -4171,19 +4310,19 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8exploitP_2__se
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_7__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_7__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_11__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_6__reduce_cython__(((struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *)__pyx_v_self));
+  __pyx_r = __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_10__reduce_cython__(((struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_6__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self) {
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_10__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4225,19 +4364,19 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_6__reduce
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_9__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_9__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_13__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8__setstate_cython__(((struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_12__setstate_cython__(((struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_12__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -6931,8 +7070,10 @@ static int __pyx_setprop_14fastronWrapper_14fastronWrapper_9PyFastron_exploitP(P
 static PyMethodDef __pyx_methods_14fastronWrapper_14fastronWrapper_PyFastron[] = {
   {"updateModel", (PyCFunction)__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_3updateModel, METH_NOARGS, 0},
   {"eval", (PyCFunction)__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_5eval, METH_O, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_7__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_9__setstate_cython__, METH_O, 0},
+  {"activeLearning", (PyCFunction)__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_7activeLearning, METH_NOARGS, 0},
+  {"updateLabels", (PyCFunction)__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_9updateLabels, METH_O, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_11__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_13__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 

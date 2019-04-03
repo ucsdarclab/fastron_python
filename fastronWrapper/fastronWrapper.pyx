@@ -170,3 +170,13 @@ cdef class PyFastron:
     @exploitP.setter
     def exploitP(self, exploitP):
         self.c_fastron.exploitP = exploitP
+
+    def activeLearning(self):
+        self.c_fastron.activeLearning()
+
+    # kinematics-based collision detector
+    # virtual function can not work, call kcd externally
+    
+    # update all labels in 
+    def updateLabels(self, np.ndarray[np.float64_t, ndim=2] yKcd):
+        self.c_fastron.updateLabels(Map[ArrayXd](yKcd))

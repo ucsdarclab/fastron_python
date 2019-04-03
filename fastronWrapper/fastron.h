@@ -78,6 +78,8 @@ class Fastron {
         // update all labels in 
         void updateLabels();
         void updateLabels(int colDetector);
+        // overload
+        void updateLabels(Eigen::ArrayXd yKcd);
     private:
         // count of points with nonzero weights
         int numberSupportPoints = 0;

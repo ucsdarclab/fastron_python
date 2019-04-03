@@ -19,7 +19,12 @@ pprint(data)
 pyf = fastronWrapper.PyFastron(data)
 
 # update model
-pyf.y = np.array([[1.],[1.],[-1.],[-1.]])
+#pyf.y = np.array([[1.],[1.],[-1.],[-1.]])
+y = np.array([[1.],[1.],[-1.],[-1.]])
+
+print("y:\n", pyf.y)
+pyf.updateLabels(y)
+print("y:\n", pyf.y)
 pyf.maxSupportPoints = 100
 pyf.updateModel()
 
@@ -28,9 +33,9 @@ print("y:\n", pyf.y)
 print("F:\n", pyf.F)
 
 # proxy check
-query_points = np.array([[1.0,1.0,1.0,1.0],
-                [4.0,4.0,4.0,4.0],
-                [20.0,20.0,20.0,20.0],
-                [20.0,20.0,20.0,20.0]],
+query_points = np.array([[1.0,1.0,1.2,1.0],
+                [4.0,4.0,4.0,4.5],
+                [22.0,20.0,20.0,20.0],
+                [22.0,20.0,20.0,20.0]],
                 order='F')
-print(pyf.eval(query_points))
+print("result:\n", pyf.eval(query_points))
