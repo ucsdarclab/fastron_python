@@ -7,18 +7,26 @@ import numpy as np
 import fastronWrapper
 
 # toy data
+# data = np.array([[1.0,2.0,3.0],
+#                 [4.0,5.0,6.0],
+#                 [7.0,8.0,9.0],
+#                 [10.0,11.0,12.0]],
+#                 order='F')   # !!IMPORTANT store in colmun major, type matters. Changed in Wrapper file
 data = np.array([[1.0,2.0,3.0],
                 [4.0,5.0,6.0],
                 [7.0,8.0,9.0],
                 [10.0,11.0,12.0]],
-                order='F')   # !!IMPORTANT store in colmun major, type matters
+                )  
+
 print("Numpy data:")
 pprint(data)
+
 
 # initialize fastron class
 pyf = fastronWrapper.PyFastron(data)
 
-#pyf.data = data
+print("C++ data:")
+pprint(pyf.data)
 
 print(pyf.N)
 print(pyf.d)

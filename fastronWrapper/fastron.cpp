@@ -267,11 +267,9 @@ Eigen::ArrayXd Fastron::eval(Eigen::MatrixXd query_points)
                 temp += (data.col(j).array() - (query_points)(i, j)).square();
         }
         acc(i) = (alpha / (temp * temp)).sum();
-        std::cout << i << std::endl;
     }
 
     temp.resize(0);
-    std::cout << "C++ acc:\n" << acc << std::endl;
     return acc.sign();
 }
 

@@ -1,6 +1,6 @@
 # distutils: language = c++
 # cython: language_level=3
-
+import numpy
 cimport numpy as np
 from fastronWrapper_h cimport Fastron
 from eigency.core cimport *
@@ -13,7 +13,8 @@ cdef class PyFastron:
     def __cinit__(self, np.ndarray[np.float64_t, ndim=2] data):
         # type matters, must use float type
         #self.c_fastron = Fastron()
-        self.c_fastron = Fastron(Map[MatrixXd](data))
+        #self.c_fastron = Fastron(Map[MatrixXd](data))
+        self.c_fastron = Fastron(Map[MatrixXd](numpy.array(data,order='F')))
     
     # def __dealloc__(self):
     #     del self.c_fastron
@@ -61,7 +62,7 @@ cdef class PyFastron:
     @G.setter
     def G(self, np.ndarray[np.float64_t, ndim=2] G):
         # type matters, must use float type
-        self.c_fastron.G = Map[MatrixXd](G)
+        self.c_fastron.G = Map[MatrixXd](numpy.array(G,order='F'))
 
     @property
     def data(self):
@@ -69,7 +70,7 @@ cdef class PyFastron:
     @data.setter
     def data(self, np.ndarray[np.float64_t, ndim=2] data):
         # type matters, must use float type
-        self.c_fastron.data = Map[MatrixXd](data)
+        self.c_fastron.data = Map[MatrixXd](numpy.array(data,order='F'))
 
     # number of datapoints and dimensionality
     @property
@@ -138,7 +139,7 @@ cdef class PyFastron:
     #     return ndarray(self.c_fastron.eval(ptr_query_points))#ptr_query_points))
 
     def eval(self, np.ndarray[np.float64_t, ndim=2] query_points):
-        return ndarray(self.c_fastron.eval(Map[MatrixXd](query_points)))
+        return ndarray(self.c_fastron.eval(Map[MatrixXd](numpy.array(query_points,order='F'))))
 
     # active learning parameters: allowance (number of new samples), kNS (number of points near supports), sigma (Gaussian sampling std), exploitP (proportion of exploitation samples)
     @property
