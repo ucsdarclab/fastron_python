@@ -12,8 +12,5 @@ extensions = [
 ]
 
 dist = setup(
-    #name = "fastronWrapper",
-    #version = "1.0",
     ext_modules = cythonize(extensions),
-    #packages = ["fastronWrapper"]
 )
