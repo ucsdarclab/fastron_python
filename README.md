@@ -15,3 +15,6 @@ import fastronWrapper
 
 fastron = fastronWrapper.PyFastron(data)
 ```
+
+## Issues
+When trying to setup the Cython wrapper, compilation error may occur on some Eigen functions. This is because the bridge between numpy and Eigen, Eigency, maintains its own version of Eigen library and it is outdated. To fix this issue, replace that library with the latest Eigen library.
