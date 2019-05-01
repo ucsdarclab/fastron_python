@@ -70,7 +70,8 @@ class Fastron {
         // active learning parameters: allowance (number of new samples), kNS (number of points near supports), sigma (Gaussian sampling std), exploitP (proportion of exploitation samples)
         int allowance = 800, kNS = 4;
         double sigma, exploitP = 0.5;
-        void activeLearning();
+        // void activeLearning();
+        double activeLearning(); // overload
 
         // kinematics-based collision detector. Not defined, as its implementation is depends on robot/environment
         virtual double kcd(Eigen::RowVectorXd query_point, int colDetector);

@@ -49,7 +49,8 @@ cdef extern from "fastron.h":
         # active learning parameters: allowance (number of new samples), kNS (number of points near supports), sigma (Gaussian sampling std), exploitP (proportion of exploitation samples)
         int allowance, kNS
         double sigma, exploitP
-        void activeLearning()
+        # void activeLearning()
+        double activeLearning()
 
         # kinematics-based collision detector
         # virtual function can not work, call kcd externally

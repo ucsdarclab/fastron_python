@@ -4318,8 +4318,8 @@ static int __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8exploitP_2__se
  *         self.c_fastron.exploitP = exploitP
  * 
  *     def activeLearning(self):             # <<<<<<<<<<<<<<
- *         self.c_fastron.activeLearning()
- * 
+ *         # self.c_fastron.activeLearning()
+ *         return self.c_fastron.activeLearning()
  */
 
 /* Python wrapper */
@@ -4338,33 +4338,43 @@ static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_7activeLe
 static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_6activeLearning(struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("activeLearning", 0);
 
-  /* "fastronWrapper/fastronWrapper.pyx":176
- * 
+  /* "fastronWrapper/fastronWrapper.pyx":177
  *     def activeLearning(self):
- *         self.c_fastron.activeLearning()             # <<<<<<<<<<<<<<
+ *         # self.c_fastron.activeLearning()
+ *         return self.c_fastron.activeLearning()             # <<<<<<<<<<<<<<
  * 
  *     # kinematics-based collision detector
  */
-  __pyx_v_self->c_fastron.activeLearning();
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->c_fastron.activeLearning()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 177, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
 
   /* "fastronWrapper/fastronWrapper.pyx":175
  *         self.c_fastron.exploitP = exploitP
  * 
  *     def activeLearning(self):             # <<<<<<<<<<<<<<
- *         self.c_fastron.activeLearning()
- * 
+ *         # self.c_fastron.activeLearning()
+ *         return self.c_fastron.activeLearning()
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("fastronWrapper.fastronWrapper.PyFastron.activeLearning", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "fastronWrapper/fastronWrapper.pyx":182
+/* "fastronWrapper/fastronWrapper.pyx":183
  * 
  *     # update all labels in
  *     def updateLabels(self, np.ndarray[np.float64_t, ndim=2] yKcd):             # <<<<<<<<<<<<<<
@@ -4377,7 +4387,7 @@ static PyObject *__pyx_pw_14fastronWrapper_14fastronWrapper_9PyFastron_9updateLa
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("updateLabels (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_yKcd), __pyx_ptype_5numpy_ndarray, 1, "yKcd", 0))) __PYX_ERR(1, 182, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_yKcd), __pyx_ptype_5numpy_ndarray, 1, "yKcd", 0))) __PYX_ERR(1, 183, __pyx_L1_error)
   __pyx_r = __pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8updateLabels(((struct __pyx_obj_14fastronWrapper_14fastronWrapper_PyFastron *)__pyx_v_self), ((PyArrayObject *)__pyx_v_yKcd));
 
   /* function exit code */
@@ -4402,11 +4412,11 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8updateLa
   __pyx_pybuffernd_yKcd.rcbuffer = &__pyx_pybuffer_yKcd;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_yKcd.rcbuffer->pybuffer, (PyObject*)__pyx_v_yKcd, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(1, 182, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_yKcd.rcbuffer->pybuffer, (PyObject*)__pyx_v_yKcd, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(1, 183, __pyx_L1_error)
   }
   __pyx_pybuffernd_yKcd.diminfo[0].strides = __pyx_pybuffernd_yKcd.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_yKcd.diminfo[0].shape = __pyx_pybuffernd_yKcd.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_yKcd.diminfo[1].strides = __pyx_pybuffernd_yKcd.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_yKcd.diminfo[1].shape = __pyx_pybuffernd_yKcd.rcbuffer->pybuffer.shape[1];
 
-  /* "fastronWrapper/fastronWrapper.pyx":183
+  /* "fastronWrapper/fastronWrapper.pyx":184
  *     # update all labels in
  *     def updateLabels(self, np.ndarray[np.float64_t, ndim=2] yKcd):
  *         self.c_fastron.updateLabels(Map[ArrayXd](yKcd))             # <<<<<<<<<<<<<<
@@ -4415,11 +4425,11 @@ static PyObject *__pyx_pf_14fastronWrapper_14fastronWrapper_9PyFastron_8updateLa
     __pyx_t_1 = eigency::Map<Eigen::ArrayXd> (((PyArrayObject *)__pyx_v_yKcd));
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 183, __pyx_L1_error)
+    __PYX_ERR(1, 184, __pyx_L1_error)
   }
   __pyx_v_self->c_fastron.updateLabels(__pyx_t_1);
 
-  /* "fastronWrapper/fastronWrapper.pyx":182
+  /* "fastronWrapper/fastronWrapper.pyx":183
  * 
  *     # update all labels in
  *     def updateLabels(self, np.ndarray[np.float64_t, ndim=2] yKcd):             # <<<<<<<<<<<<<<

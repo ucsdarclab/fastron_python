@@ -173,7 +173,8 @@ cdef class PyFastron:
         self.c_fastron.exploitP = exploitP
 
     def activeLearning(self):
-        self.c_fastron.activeLearning()
+        # self.c_fastron.activeLearning()
+        return self.c_fastron.activeLearning()
 
     # kinematics-based collision detector
     # virtual function can not work, call kcd externally

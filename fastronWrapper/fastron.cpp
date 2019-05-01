@@ -272,7 +272,7 @@ Eigen::ArrayXd Fastron::eval(Eigen::MatrixXd query_points)
     temp.resize(0);
     return acc.sign();
 }
-
+/*
 void Fastron::activeLearning()
 {
     int N_prev = N;
@@ -285,6 +285,7 @@ void Fastron::activeLearning()
     data.conservativeResize(N, Eigen::NoChange);
 
     // START ACTIVE LEARNING
+    std::cout << "Before active learning\n" << data << std::endl;
     // copy support points as many times as possible
     int k;
     if (allowance / N_prev)
@@ -307,7 +308,7 @@ void Fastron::activeLearning()
             data.row(i + N_prev) = (data.row(idx[i]) + sigma * randn(1, d)).cwiseMin(1.0).cwiseMax(-1.0);
     }
     // END ACTIVE LEARNING
-
+    std::cout << "After active learning\n" << data << std::endl;
     // Update Gram matrix
     if (G.cols() < N)
         G.conservativeResize(N, N);
@@ -325,6 +326,64 @@ void Fastron::activeLearning()
     alpha.conservativeResize(N);
     alpha.tail(allowance) = 0;
 }
+*/
+
+// overload activelearning to block communication
+double Fastron::activeLearning()
+{
+    int N_prev = N;
+    N += allowance;
+
+    y.conservativeResize(N);
+    y.tail(allowance) = 0;
+
+    // make room for new data
+    data.conservativeResize(N, Eigen::NoChange);
+
+    // START ACTIVE LEARNING
+    // std::cout << "Before active learning\n" << data << std::endl;
+    // copy support points as many times as possible
+    int k;
+    if (allowance / N_prev)
+    {
+        // Exploitation
+        for (k = 0; k < std::min(kNS, allowance / N_prev); ++k)
+            data.block((k + 1) * N_prev, 0, N_prev, d) = (data.block(0, 0, N_prev, d) + sigma * randn(N_prev, d)).cwiseMin(1.0).cwiseMax(-1.0);
+
+        // Exploration
+        data.bottomRows(allowance - k * N_prev) = Eigen::MatrixXd::Random(allowance - k * N_prev, d);
+    }
+    else
+    {
+        std::vector<int> idx;
+        for (int i = 0; i < N_prev; ++i)
+            idx.push_back(i);
+        std::random_shuffle(idx.begin(), idx.end());
+
+        for (int i = 0; i < allowance; i++)
+            data.row(i + N_prev) = (data.row(idx[i]) + sigma * randn(1, d)).cwiseMin(1.0).cwiseMax(-1.0);
+    }
+    // END ACTIVE LEARNING
+    // std::cout << "After active learning\n" << data << std::endl;
+    // Update Gram matrix
+    if (G.cols() < N)
+        G.conservativeResize(N, N);
+    gramComputed.conservativeResize(N);
+    gramComputed.tail(allowance) = 0;
+
+    // Update hypothesis vector and Gram matrix
+    F.conservativeResize(N);
+    Eigen::ArrayXi idx = find(alpha);
+    for (int i = 0; i < idx.size(); ++i)
+        computeGramMatrixCol(idx(i), N_prev); // this is the slowest part of this function
+
+    F.tail(allowance) = (G.block(N_prev, 0, allowance, N_prev) * alpha.matrix()).array();
+
+    alpha.conservativeResize(N);
+    alpha.tail(allowance) = 0;
+    return 1;
+}
+
 
 double Fastron::kcd(Eigen::RowVectorXd query_point, int colDetector = 0)
 {
