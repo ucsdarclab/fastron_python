@@ -1,0 +1,4 @@
+# required packages
+Cython
+numpy
+eigency
