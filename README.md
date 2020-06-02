@@ -1,7 +1,16 @@
 # Python Implementation of Fastron
 
 A Cython interface to implement Fastron library with Rational Quadratic kernel in Python environment. This implementation is based on the paper [Learning-Based Proxy Collision Detection for Robot Motion Planning Applications
-](https://ieeexplore.ieee.org/abstract/document/9023003).
+](https://ieeexplore.ieee.org/abstract/document/9023003). If you use this work in your research, please cite
+
+    @article{das2020learning,
+      title={Learning-based Proxy Collision Detection for Robot Motion Planning Applications},
+      author={Das, Nikhil and Yip, Michael},
+      journal={IEEE Transactions on Robotics},
+      year={2020},
+      publisher={IEEE}
+    }
+
 
 ## Use Fastron in Python
 The Cython wrapper is already setup, hence Fastron can be directly imported.
@@ -79,3 +88,14 @@ fastron.updateModel()
 # Predict values for a test set
 pred = fastron.eval(data_test) # where data_test.shape = (N_test, d) 
 ```
+
+## Requirements
+* Python
+* Cython
+* Numpy
+* Eigen
+* Eigency
+
+## Credits
+* Mingwei Xu - [InspireX96](https://github.com/InspireX96)
+* Nikhil Das - [nkhldas](https://github.com/nkhldas)
