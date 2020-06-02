@@ -1,8 +1,7 @@
 # Python Implementation of Fastron
 
-A Cython interface to implement Fastron library in Python environment
-
-Still working on this documentation file
+A Cython interface to implement Fastron library with Rational Quadratic kernel in Python environment. This implementation is based on the paper [Learning-Based Proxy Collision Detection for Robot Motion Planning Applications
+](https://ieeexplore.ieee.org/abstract/document/9023003).
 
 ## Use Fastron in Python
 The Cython wrapper is already setup, hence Fastron can be directly imported.
@@ -46,11 +45,11 @@ tar -xvf eigen-3.3.7
 mv <untarred_directory> <conda_env>/lib/python3.7/site-packages/eigency/eigen_3.2.8
 ```
 
-On Windows, replace Eigency's version of Eigen 3.2.8 (in site-packages) with Eigen 3.3.7.
+On Windows, replace Eigency's version of Eigen 3.2.8 (in site-packages) with Eigen 3.3.7 by selecting the contents in the Eigen 3.3.7 folder and pasting them into Eigency's Eigen folder.
 
 ## Usage
 Import the fastronWrapper.pyx file to allow instantiation of PyFastron objects.
-```bash
+```python
 import pyximport
 pyximport.install()
 
@@ -60,10 +59,10 @@ from fastronWrapper.fastronWrapper import PyFastron
 
 The PyFastron constructor only has a dataset of configurations (as a Numpy matrix) as an argument. Data labels (as a Numpy array) and kernel and model parameters can be set after construction.
 
-The updateModel() method learns the weights for the model, and eval() predicts the collision status values with the trained model
+The `updateModel()` method learns the weights for the model, and `eval()` predicts the collision status values with the trained model.
 
 ### Example
-```bash
+```python
 # Initialize PyFastron
 fastron = PyFastron(data) # where data.shape = (N, d)
 
